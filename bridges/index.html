@@ -918,6 +918,7 @@
           </h2>
           <div style="display: flex; flex-wrap: wrap; gap: 48px">
             <form
+              data-form="rsvp"
               style="
                 flex: 1 1 420px;
                 min-width: 0;
@@ -1041,10 +1042,10 @@
                     text-transform: uppercase;
                     color: #7a5c22;
                   "
-                  >[00] Coming</span
+                  ><span id="rsvp-count">—</span> Coming</span
                 >
               </div>
-              <ul style="list-style: none; margin: 0; padding: 0">
+              <ul id="attendee-list" style="list-style: none; margin: 0; padding: 0">
                 <li
                   style="
                     display: flex;
@@ -1237,6 +1238,7 @@
               language you are still proud you learned.
             </p>
             <form
+              data-form="song"
               style="
                 display: flex;
                 flex-wrap: wrap;
@@ -1343,6 +1345,7 @@
 
           <div
             id="buche"
+            data-form="contest"
             style="
               flex: 1 1 440px;
               min-width: 0;
@@ -1584,51 +1587,7 @@
             The Gallery
           </h2>
           <div
-            role="group"
-            aria-label="Gallery era"
-            style="
-              display: flex;
-              justify-content: center;
-              gap: 0;
-              margin-bottom: 48px;
-            "
-          >
-            <button
-              type="button"
-              aria-pressed="true"
-              style="
-                min-height: 48px;
-                padding: 0 32px;
-                border: 1px solid #0f1b2d;
-                background: #0f1b2d;
-                color: #f5efe3;
-                font-family: &quot;EB Garamond&quot;, serif;
-                font-size: 13px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-              "
-            >
-              Then
-            </button>
-            <button
-              type="button"
-              aria-pressed="false"
-              style="
-                min-height: 48px;
-                padding: 0 32px;
-                border: 1px solid #0f1b2d;
-                background: transparent;
-                color: #0f1b2d;
-                font-family: &quot;EB Garamond&quot;, serif;
-                font-size: 13px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-              "
-            >
-              Now
-            </button>
-          </div>
-          <div
+            id="gallery-grid"
             style="
               display: grid;
               grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1778,6 +1737,7 @@
           </div>
           <div style="display: flex; justify-content: center; margin-top: 48px">
             <button
+              id="share-photo"
               type="button"
               style="
                 min-height: 52px;
@@ -1831,5 +1791,249 @@
         </p>
       </footer>
     </div>
+    <script>
+      // reunion backend (Apps Script web app). token is not secret; it just
+      // keeps drive-by bots out of the sheet. see backend/SETUP.md.
+      const BACKEND =
+        "https://script.google.com/macros/s/AKfycbyQtK6UI4bNW1hfBRWVsX7ntMTxk2U_Lbwj4GLVajPQI4Euch0ys2_uGpVPlYkhQdVY/exec";
+      const TOKEN = "Pancreas-Handlebar-Remorse-Outsmart5";
+
+      // fields each form sends, in the order the inputs appear in the markup
+      const FIELDS = {
+        rsvp: ["name", "email", "years", "party", "area"],
+        song: ["carol"],
+        contest: ["baker", "name", "email"],
+      };
+      const DONE = {
+        rsvp: "You're on the list. Your name joins the wall once we confirm it.",
+        song: "Request received — merci.",
+        contest: "You're entered. Bonne chance.",
+      };
+
+      const esc = (s) =>
+        String(s == null ? "" : s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c]
+        );
+
+      async function post(params) {
+        const body = new URLSearchParams({ token: TOKEN, ...params });
+        const res = await fetch(BACKEND, { method: "POST", body });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || "submit failed");
+        return data;
+      }
+
+      function status(container, msg, bad) {
+        let el = container.querySelector("[data-status]");
+        if (!el) {
+          el = document.createElement("p");
+          el.setAttribute("data-status", "");
+          el.style.cssText = "margin:4px 0 0;font-size:15px";
+          container.querySelector("button").after(el);
+        }
+        el.style.color = bad ? "#a64a34" : "#2f7d4f";
+        el.textContent = msg;
+      }
+
+      document.querySelectorAll("[data-form]").forEach((container) => {
+        const type = container.dataset.form;
+        const btn = container.querySelector("button");
+        const send = async () => {
+          const inputs = container.querySelectorAll("input, select");
+          const params = { form: type };
+          FIELDS[type].forEach((key, i) => (params[key] = inputs[i]?.value || ""));
+          btn.disabled = true;
+          const label = btn.textContent;
+          btn.textContent = "Sending...";
+          try {
+            await post(params);
+            status(container, DONE[type]);
+            inputs.forEach((el) => (el.value = ""));
+            if (type === "rsvp") loadAttendees();
+          } catch (e) {
+            status(container, "Something went wrong. Please try again.", true);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = label;
+          }
+        };
+        // forms submit on enter too; the buttons are type=button
+        container.addEventListener("submit", (e) => {
+          e.preventDefault();
+          send();
+        });
+        btn.addEventListener("click", send);
+      });
+
+      // ---- attendee wall ----
+      function initials(name) {
+        const clean = String(name || "")
+          .replace(/^(elder|sister|sœur|soeur|president|président)\s+/i, "")
+          .trim();
+        const parts = clean.split(/\s+/).filter(Boolean);
+        const two = (parts[0] || "") + (parts[1] || "");
+        return (two.slice(0, 2) || "?").toUpperCase();
+      }
+
+      async function loadAttendees() {
+        const list = document.getElementById("attendee-list");
+        const count = document.getElementById("rsvp-count");
+        try {
+          const res = await fetch(BACKEND + "?type=attendees");
+          const data = await res.json();
+          count.textContent = data.people;
+          if (!data.attendees.length) {
+            list.innerHTML =
+              '<li style="padding:18px 0;color:#5b6573;font-size:16px">No confirmed guests yet. Be the first to RSVP.</li>';
+            return;
+          }
+          list.innerHTML = data.attendees
+            .map((a) => {
+              const meta = [a.years, a.area, a.party === 1 ? "Just me" : "Party of " + a.party]
+                .filter(Boolean)
+                .map(esc)
+                .join(" · ");
+              return (
+                '<li style="display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid #d8cbb0">' +
+                '<span style="width:44px;height:44px;border-radius:50%;background:#0f1b2d;color:#c9a55c;display:flex;align-items:center;justify-content:center;font-family:\'Cormorant Garamond\',serif;font-size:18px">' +
+                esc(initials(a.name)) +
+                "</span>" +
+                '<span style="display:flex;flex-direction:column;gap:2px">' +
+                '<span style="font-size:17px">' +
+                esc(a.name) +
+                "</span>" +
+                '<span style="font-size:14px;color:#5b6573">' +
+                meta +
+                "</span></span></li>"
+              );
+            })
+            .join("");
+        } catch (e) {
+          /* leave the static fallback in place if the fetch fails */
+        }
+      }
+
+      // ---- gallery ----
+      async function loadGallery() {
+        const grid = document.getElementById("gallery-grid");
+        try {
+          const res = await fetch(BACKEND + "?type=gallery");
+          const data = await res.json();
+          if (!data.images.length) {
+            grid.innerHTML =
+              '<p style="grid-column:1/-1;text-align:center;color:#7b705c;font-size:16px">No photos yet. Be the first to share one.</p>';
+            return;
+          }
+          grid.innerHTML = data.images
+            .map(
+              (img) =>
+                '<figure style="margin:0;padding:12px 12px 16px;background:#fff;box-shadow:0 1px 3px rgba(15,27,45,0.12)">' +
+                '<div style="aspect-ratio:4/5;background:#e4dac6;overflow:hidden">' +
+                '<img src="' +
+                esc(img.url) +
+                '" alt="' +
+                esc(img.caption) +
+                '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>' +
+                '<figcaption style="margin-top:12px;font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:18px;color:#4c5665">' +
+                esc(img.caption || img.name || "") +
+                "</figcaption></figure>"
+            )
+            .join("");
+        } catch (e) {
+          /* leave the static fallback in place if the fetch fails */
+        }
+      }
+
+      // ---- photo upload ----
+      function resizeToDataUrl(file, maxDim, quality) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          const url = URL.createObjectURL(file);
+          img.onload = () => {
+            let { width: w, height: h } = img;
+            const longest = Math.max(w, h);
+            if (longest > maxDim) {
+              const s = maxDim / longest;
+              w = Math.round(w * s);
+              h = Math.round(h * s);
+            }
+            const c = document.createElement("canvas");
+            c.width = w;
+            c.height = h;
+            c.getContext("2d").drawImage(img, 0, 0, w, h);
+            URL.revokeObjectURL(url);
+            resolve(c.toDataURL("image/jpeg", quality));
+          };
+          img.onerror = reject;
+          img.src = url;
+        });
+      }
+
+      const shareBtn = document.getElementById("share-photo");
+      if (shareBtn) {
+        const dlg = document.createElement("dialog");
+        dlg.style.cssText =
+          "border:1px solid #c9a55c;background:#0f1b2d;color:#f5efe3;max-width:420px;width:90vw;padding:32px;font-family:'EB Garamond',serif";
+        dlg.innerHTML =
+          '<h3 style="margin:0 0 4px;font-family:\'Cormorant Garamond\',serif;font-weight:500;font-size:28px">Share a Photo</h3>' +
+          '<p style="margin:0 0 20px;color:#b9c2cf;font-size:15px">Then or now. It appears on the site once we approve it.</p>' +
+          '<label class="fld" style="color:#b9c2cf;display:block;margin-bottom:16px">Photo<input id="up-file" type="file" accept="image/*" style="margin-top:6px;color:#f5efe3"></label>' +
+          '<label class="fld" style="color:#b9c2cf;display:block;margin-bottom:16px">Caption<input id="up-caption" type="text" placeholder="Montpellier, 2001" style="border:1px solid rgba(201,165,92,0.5);background:#16263d;color:#f5efe3"></label>' +
+          '<label class="fld" style="color:#b9c2cf;display:block;margin-bottom:24px">Your Name<input id="up-name" type="text" placeholder="Elder or Sister ..." style="border:1px solid rgba(201,165,92,0.5);background:#16263d;color:#f5efe3"></label>' +
+          '<div style="display:flex;gap:12px;align-items:center">' +
+          '<button id="up-send" type="button" style="min-height:48px;padding:0 24px;border:0;border-radius:2px;background:#c9a55c;color:#0f1b2d;font-family:\'EB Garamond\',serif;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer">Upload</button>' +
+          '<button id="up-cancel" type="button" style="min-height:48px;padding:0 20px;border:1px solid #46556480;border-radius:2px;background:transparent;color:#b9c2cf;font-family:\'EB Garamond\',serif;font-size:14px;cursor:pointer">Cancel</button>' +
+          '<span id="up-status" style="font-size:14px;color:#b9c2cf"></span></div>';
+        document.body.appendChild(dlg);
+
+        const file = dlg.querySelector("#up-file");
+        const upStatus = dlg.querySelector("#up-status");
+        shareBtn.addEventListener("click", () => {
+          upStatus.textContent = "";
+          dlg.showModal();
+        });
+        dlg.querySelector("#up-cancel").addEventListener("click", () => dlg.close());
+        dlg.querySelector("#up-send").addEventListener("click", async () => {
+          if (!file.files[0]) {
+            upStatus.textContent = "Pick a photo first.";
+            return;
+          }
+          const send = dlg.querySelector("#up-send");
+          send.disabled = true;
+          upStatus.textContent = "Uploading...";
+          try {
+            const image = await resizeToDataUrl(file.files[0], 1600, 0.82);
+            await post({
+              form: "gallery",
+              image,
+              mime: "image/jpeg",
+              filename: file.files[0].name,
+              caption: dlg.querySelector("#up-caption").value,
+              name: dlg.querySelector("#up-name").value,
+            });
+            upStatus.style.color = "#8fd0a3";
+            upStatus.textContent = "Thanks — pending approval.";
+            file.value = "";
+            setTimeout(() => dlg.close(), 1400);
+          } catch (e) {
+            upStatus.style.color = "#e3a08f";
+            upStatus.textContent = "Upload failed. Try again.";
+          } finally {
+            send.disabled = false;
+          }
+        });
+      }
+
+      loadAttendees();
+      loadGallery();
+    </script>
   </body>
 </html>
