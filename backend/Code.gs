@@ -30,7 +30,7 @@ function doPost(e) {
         return json_({ ok: true });
       case 'song':
         append_('Songs', [new Date(), e.parameter.name, e.parameter.carol,
-                          e.parameter.note]);
+                          e.parameter.note, 'pending']);
         return json_({ ok: true });
       case 'contest':
         append_('Contest', [new Date(), e.parameter.baker, e.parameter.name,
@@ -95,8 +95,9 @@ function songs_() {
   const rows = sheet_('Songs').getDataRange().getValues();
   const songs = [];
   for (let i = 1; i < rows.length; i++) {
-    const [ts, name, carol] = rows[i];
+    const [ts, name, carol, note, status] = rows[i];
     if (!carol) continue;
+    if (String(status).toLowerCase() !== 'approved') continue;
     songs.push({ carol: carol, name: name });
   }
   return { ok: true, songs: songs };

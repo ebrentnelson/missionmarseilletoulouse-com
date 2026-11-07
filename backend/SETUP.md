@@ -11,7 +11,7 @@ Make one Google Sheet (any name) with three tabs. Row 1 is headers.
 | timestamp | name | email | years | party | area | status |
 
 **Songs**
-| timestamp | name | carol | note |
+| timestamp | name | carol | note | status |
 
 **Contest**
 | timestamp | baker | name | email |
@@ -50,11 +50,11 @@ lives in the page — it just stops drive-by spam.)
 
 ## Moderating
 
-- **RSVPs** and **gallery photos** land with `status = pending` and do not show
-  on the site until you set `status` to `approved` in the sheet. Set it to
-  anything else (or leave blank) to keep something hidden.
-- **Song requests** and **contest entries** are not moderated; they just
-  collect in the Songs and Contest tabs.
+- **RSVPs**, **carol requests**, and **gallery photos** land with
+  `status = pending` and do not show on the site until you set `status` to
+  `approved` in the sheet. Set it to anything else (or leave blank) to keep
+  something hidden.
+- **Contest entries** are not moderated; they just collect in the Contest tab.
 
 ## Re-deploying after a code change
 

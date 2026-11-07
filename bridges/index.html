@@ -42,7 +42,45 @@
         box-sizing: border-box;
       }
     </style>
-    <style></style>
+    <style>
+      /* loading skeletons for the data-driven lists */
+      @keyframes mmtShimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+      .sk,
+      .sk-d {
+        border-radius: 3px;
+        background-size: 200% 100%;
+        animation: mmtShimmer 1.5s linear infinite;
+      }
+      .sk {
+        background-image: linear-gradient(
+          90deg,
+          #e4dac6 25%,
+          #f1eadc 50%,
+          #e4dac6 75%
+        );
+      }
+      .sk-d {
+        background-image: linear-gradient(
+          90deg,
+          #16263d 25%,
+          #223650 50%,
+          #16263d 75%
+        );
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .sk,
+        .sk-d {
+          animation: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <div
@@ -1056,25 +1094,13 @@
                   "
                 >
                   <span
-                    style="
-                      width: 44px;
-                      height: 44px;
-                      border-radius: 50%;
-                      background: #0f1b2d;
-                      color: #c9a55c;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      font-family: &quot;Cormorant Garamond&quot;, serif;
-                      font-size: 18px;
-                    "
-                    >AB</span
-                  ><span style="display: flex; flex-direction: column; gap: 2px"
-                    ><span style="font-size: 17px">Elder [Name]</span
-                    ><span style="font-size: 14px; color: #5b6573"
-                      >[Years] · [Area] · Party of 2</span
-                    ></span
-                  >
+                    class="sk"
+                    style="width: 44px; height: 44px; border-radius: 50%; flex: none"
+                  ></span>
+                  <span style="display: flex; flex-direction: column; gap: 8px; flex: 1">
+                    <span class="sk" style="height: 15px; width: 50%"></span>
+                    <span class="sk" style="height: 12px; width: 72%"></span>
+                  </span>
                 </li>
                 <li
                   style="
@@ -1086,25 +1112,13 @@
                   "
                 >
                   <span
-                    style="
-                      width: 44px;
-                      height: 44px;
-                      border-radius: 50%;
-                      background: #0f1b2d;
-                      color: #c9a55c;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      font-family: &quot;Cormorant Garamond&quot;, serif;
-                      font-size: 18px;
-                    "
-                    >CD</span
-                  ><span style="display: flex; flex-direction: column; gap: 2px"
-                    ><span style="font-size: 17px">Sister [Name]</span
-                    ><span style="font-size: 14px; color: #5b6573"
-                      >[Years] · [Area] · Party of 4</span
-                    ></span
-                  >
+                    class="sk"
+                    style="width: 44px; height: 44px; border-radius: 50%; flex: none"
+                  ></span>
+                  <span style="display: flex; flex-direction: column; gap: 8px; flex: 1">
+                    <span class="sk" style="height: 15px; width: 42%"></span>
+                    <span class="sk" style="height: 12px; width: 64%"></span>
+                  </span>
                 </li>
                 <li
                   style="
@@ -1116,55 +1130,13 @@
                   "
                 >
                   <span
-                    style="
-                      width: 44px;
-                      height: 44px;
-                      border-radius: 50%;
-                      background: #0f1b2d;
-                      color: #c9a55c;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      font-family: &quot;Cormorant Garamond&quot;, serif;
-                      font-size: 18px;
-                    "
-                    >EF</span
-                  ><span style="display: flex; flex-direction: column; gap: 2px"
-                    ><span style="font-size: 17px">Elder [Name]</span
-                    ><span style="font-size: 14px; color: #5b6573"
-                      >[Years] · [Area] · Just me</span
-                    ></span
-                  >
-                </li>
-                <li
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 16px;
-                    padding: 18px 0;
-                    border-bottom: 1px solid #d8cbb0;
-                  "
-                >
-                  <span
-                    style="
-                      width: 44px;
-                      height: 44px;
-                      border-radius: 50%;
-                      background: #0f1b2d;
-                      color: #c9a55c;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      font-family: &quot;Cormorant Garamond&quot;, serif;
-                      font-size: 18px;
-                    "
-                    >GH</span
-                  ><span style="display: flex; flex-direction: column; gap: 2px"
-                    ><span style="font-size: 17px">Sister [Name]</span
-                    ><span style="font-size: 14px; color: #5b6573"
-                      >[Years] · [Area] · Party of 3</span
-                    ></span
-                  >
+                    class="sk"
+                    style="width: 44px; height: 44px; border-radius: 50%; flex: none"
+                  ></span>
+                  <span style="display: flex; flex-direction: column; gap: 8px; flex: 1">
+                    <span class="sk" style="height: 15px; width: 56%"></span>
+                    <span class="sk" style="height: 12px; width: 60%"></span>
+                  </span>
                 </li>
               </ul>
               <a
@@ -1303,15 +1275,8 @@
                   border-bottom: 1px solid rgba(201, 165, 92, 0.3);
                 "
               >
-                <span
-                  style="
-                    font-family: &quot;Cormorant Garamond&quot;, serif;
-                    font-size: 22px;
-                  "
-                  >O Holy Night</span
-                ><span style="font-size: 14px; color: #8f9aaa"
-                  >Elder [Name]</span
-                >
+                <span class="sk-d" style="height: 20px; width: 46%"></span>
+                <span class="sk-d" style="height: 14px; width: 22%"></span>
               </li>
               <li
                 style="
@@ -1322,15 +1287,8 @@
                   border-bottom: 1px solid rgba(201, 165, 92, 0.3);
                 "
               >
-                <span
-                  style="
-                    font-family: &quot;Cormorant Garamond&quot;, serif;
-                    font-size: 22px;
-                  "
-                  >Silent Night</span
-                ><span style="font-size: 14px; color: #8f9aaa"
-                  >Sister [Name]</span
-                >
+                <span class="sk-d" style="height: 20px; width: 38%"></span>
+                <span class="sk-d" style="height: 14px; width: 26%"></span>
               </li>
               <li
                 style="
@@ -1341,15 +1299,8 @@
                   border-bottom: 1px solid rgba(201, 165, 92, 0.3);
                 "
               >
-                <span
-                  style="
-                    font-family: &quot;Cormorant Garamond&quot;, serif;
-                    font-size: 22px;
-                  "
-                  >Angels We Have Heard on High</span
-                ><span style="font-size: 14px; color: #8f9aaa"
-                  >Elder [Name]</span
-                >
+                <span class="sk-d" style="height: 20px; width: 54%"></span>
+                <span class="sk-d" style="height: 14px; width: 20%"></span>
               </li>
             </ol>
           </div>
@@ -1613,32 +1564,11 @@
                 box-shadow: 0 1px 3px rgba(15, 27, 45, 0.12);
               "
             >
-              <div
-                style="
-                  aspect-ratio: 4 / 5;
-                  background: #e4dac6;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: #7b705c;
-                  font-size: 13px;
-                  letter-spacing: 0.12em;
-                  text-transform: uppercase;
-                "
-              >
-                Photo
-              </div>
-              <figcaption
-                style="
-                  margin-top: 12px;
-                  font-family: &quot;Cormorant Garamond&quot;, serif;
-                  font-style: italic;
-                  font-size: 18px;
-                  color: #4c5665;
-                "
-              >
-                [Area], [Year]
-              </figcaption>
+              <span class="sk" style="display: block; aspect-ratio: 4 / 5"></span>
+              <span
+                class="sk"
+                style="display: block; height: 16px; width: 58%; margin-top: 14px"
+              ></span>
             </figure>
             <figure
               style="
@@ -1648,32 +1578,11 @@
                 box-shadow: 0 1px 3px rgba(15, 27, 45, 0.12);
               "
             >
-              <div
-                style="
-                  aspect-ratio: 4 / 5;
-                  background: #e4dac6;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: #7b705c;
-                  font-size: 13px;
-                  letter-spacing: 0.12em;
-                  text-transform: uppercase;
-                "
-              >
-                Photo
-              </div>
-              <figcaption
-                style="
-                  margin-top: 12px;
-                  font-family: &quot;Cormorant Garamond&quot;, serif;
-                  font-style: italic;
-                  font-size: 18px;
-                  color: #4c5665;
-                "
-              >
-                [Area], [Year]
-              </figcaption>
+              <span class="sk" style="display: block; aspect-ratio: 4 / 5"></span>
+              <span
+                class="sk"
+                style="display: block; height: 16px; width: 58%; margin-top: 14px"
+              ></span>
             </figure>
             <figure
               style="
@@ -1683,32 +1592,11 @@
                 box-shadow: 0 1px 3px rgba(15, 27, 45, 0.12);
               "
             >
-              <div
-                style="
-                  aspect-ratio: 4 / 5;
-                  background: #e4dac6;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: #7b705c;
-                  font-size: 13px;
-                  letter-spacing: 0.12em;
-                  text-transform: uppercase;
-                "
-              >
-                Photo
-              </div>
-              <figcaption
-                style="
-                  margin-top: 12px;
-                  font-family: &quot;Cormorant Garamond&quot;, serif;
-                  font-style: italic;
-                  font-size: 18px;
-                  color: #4c5665;
-                "
-              >
-                [Area], [Year]
-              </figcaption>
+              <span class="sk" style="display: block; aspect-ratio: 4 / 5"></span>
+              <span
+                class="sk"
+                style="display: block; height: 16px; width: 58%; margin-top: 14px"
+              ></span>
             </figure>
             <figure
               style="
@@ -1718,32 +1606,11 @@
                 box-shadow: 0 1px 3px rgba(15, 27, 45, 0.12);
               "
             >
-              <div
-                style="
-                  aspect-ratio: 4 / 5;
-                  background: #e4dac6;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: #7b705c;
-                  font-size: 13px;
-                  letter-spacing: 0.12em;
-                  text-transform: uppercase;
-                "
-              >
-                Photo
-              </div>
-              <figcaption
-                style="
-                  margin-top: 12px;
-                  font-family: &quot;Cormorant Garamond&quot;, serif;
-                  font-style: italic;
-                  font-size: 18px;
-                  color: #4c5665;
-                "
-              >
-                [Area], [Year]
-              </figcaption>
+              <span class="sk" style="display: block; aspect-ratio: 4 / 5"></span>
+              <span
+                class="sk"
+                style="display: block; height: 16px; width: 58%; margin-top: 14px"
+              ></span>
             </figure>
           </div>
           <div style="display: flex; justify-content: center; margin-top: 48px">
@@ -1817,7 +1684,7 @@
       };
       const DONE = {
         rsvp: "You're on the list. Your name joins the wall once we confirm it.",
-        song: "Request received — merci.",
+        song: "Request received — it joins the list once we approve it.",
         contest: "You're entered. Bonne chance.",
       };
 
