@@ -32,6 +32,10 @@ function doPost(e) {
         append_('Songs', [new Date(), e.parameter.name, e.parameter.carol,
                           e.parameter.note]);
         return json_({ ok: true });
+      case 'contest':
+        append_('Contest', [new Date(), e.parameter.baker, e.parameter.name,
+                            e.parameter.email]);
+        return json_({ ok: true });
       case 'gallery':
         return saveImage_(e);
       default:
