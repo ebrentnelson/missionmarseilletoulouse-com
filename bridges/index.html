@@ -1256,6 +1256,16 @@
                     color: #f5efe3;
                   "
               /></label>
+              <label class="fld" style="flex: 1 1 180px; color: #b9c2cf"
+                >Your Name<input
+                  type="text"
+                  placeholder="Elder or Sister ..."
+                  style="
+                    border: 1px solid rgba(201, 165, 92, 0.5);
+                    background: #16263d;
+                    color: #f5efe3;
+                  "
+              /></label>
               <button
                 type="button"
                 style="
@@ -1276,6 +1286,7 @@
               </button>
             </form>
             <ol
+              id="carol-list"
               style="
                 margin: 0;
                 padding: 0;
@@ -1801,7 +1812,7 @@
       // fields each form sends, in the order the inputs appear in the markup
       const FIELDS = {
         rsvp: ["name", "email", "years", "party", "area"],
-        song: ["carol"],
+        song: ["carol", "name"],
         contest: ["baker", "name", "email"],
       };
       const DONE = {
@@ -1858,6 +1869,7 @@
             status(container, DONE[type]);
             inputs.forEach((el) => (el.value = ""));
             if (type === "rsvp") loadAttendees();
+            if (type === "song") loadSongs();
           } catch (e) {
             status(container, "Something went wrong. Please try again.", true);
           } finally {
@@ -1921,6 +1933,36 @@
           count.textContent = "—";
           list.innerHTML =
             '<li style="padding:18px 0;color:#5b6573;font-size:16px">Couldn\'t load the guest list right now.</li>';
+        }
+      }
+
+      // ---- requested carols ----
+      async function loadSongs() {
+        const ol = document.getElementById("carol-list");
+        if (!ol) return;
+        try {
+          const res = await fetch(BACKEND + "?type=songs");
+          const data = await res.json();
+          if (!data.songs.length) {
+            ol.innerHTML =
+              '<li style="padding:16px 0;color:#8f9aaa;font-size:16px">No requests yet. Name the carol you want to sing.</li>';
+            return;
+          }
+          ol.innerHTML = data.songs
+            .map(
+              (s) =>
+                '<li style="display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgba(201,165,92,0.3)">' +
+                '<span style="font-family:\'Cormorant Garamond\',serif;font-size:22px">' +
+                esc(s.carol) +
+                "</span>" +
+                '<span style="font-size:14px;color:#8f9aaa">' +
+                esc(s.name) +
+                "</span></li>"
+            )
+            .join("");
+        } catch (e) {
+          ol.innerHTML =
+            '<li style="padding:16px 0;color:#8f9aaa;font-size:16px">Couldn\'t load requests right now.</li>';
         }
       }
 
@@ -2037,6 +2079,7 @@
       }
 
       loadAttendees();
+      loadSongs();
       loadGallery();
     </script>
   </body>

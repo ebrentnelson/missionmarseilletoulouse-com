@@ -49,6 +49,7 @@ function doPost(e) {
 function doGet(e) {
   switch ((e.parameter.type || '').toLowerCase()) {
     case 'attendees': return json_(attendees_());
+    case 'songs':     return json_(songs_());
     case 'gallery':   return json_(gallery_());
     default:          return json_({ ok: true, service: 'mmt-reunion' });
   }
@@ -88,6 +89,17 @@ function attendees_() {
     list.push({ name: name, years: years, area: area, party: size });
   }
   return { ok: true, people: people, parties: list.length, attendees: list };
+}
+
+function songs_() {
+  const rows = sheet_('Songs').getDataRange().getValues();
+  const songs = [];
+  for (let i = 1; i < rows.length; i++) {
+    const [ts, name, carol] = rows[i];
+    if (!carol) continue;
+    songs.push({ carol: carol, name: name });
+  }
+  return { ok: true, songs: songs };
 }
 
 function gallery_() {
