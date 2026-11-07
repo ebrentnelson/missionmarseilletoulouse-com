@@ -3,23 +3,266 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Bridges: Design Preview</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&amp;family=EB+Garamond:wght@400&amp;display=swap">
+<title>France Marseille Toulouse Mission — Reunions</title>
+<meta name="description" content="Reunions and gatherings for those who served in the France Marseille Toulouse Mission.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
-body{margin:0;min-height:100vh;background:#0F1B2D;color:#F5EFE3;font-family:'EB Garamond',serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:48px 24px;box-sizing:border-box;text-align:center}
-img{width:min(560px,90vw);height:auto}
-p{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#E9DFC9}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:16px}
-a{display:inline-flex;align-items:center;min-height:48px;padding:0 28px;border:1px solid #C9A55C;color:#C9A55C;text-decoration:none;letter-spacing:.16em;text-transform:uppercase;font-size:14px;border-radius:2px}
-a:hover{background:#C9A55C;color:#0F1B2D}
-small{color:#B9C2CF;font-size:14px;letter-spacing:.06em}
+  :root {
+    --paper: #ECE3D0;
+    --paper-deep: #E3D7BF;
+    --ink: #1C2B3A;
+    --ink-soft: #46556440;
+    --sea: #2B6E86;
+    --rose: #A64A34;
+    --gold: #C9A55C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---- top line ---- */
+  .masthead {
+    padding: 40px 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--sea);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items: center;
+    padding: 56px 0 72px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(44px, 7vw, 86px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--rose);
+  }
+  .hero p {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 21px;
+    color: #39485a;
+  }
+
+  /* ---- the two-city arc ---- */
+  .map { width: 100%; height: auto; overflow: visible; }
+  .map .route {
+    fill: none;
+    stroke: var(--sea);
+    stroke-width: 1.4;
+    stroke-dasharray: 1 5;
+    stroke-linecap: round;
+  }
+  .map .arc {
+    fill: none;
+    stroke: var(--rose);
+    stroke-width: 1.6;
+  }
+  .map .city { fill: var(--ink); }
+  .map .ring { fill: none; stroke: var(--gold); stroke-width: 1.3; }
+  .map text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    fill: var(--ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .map .arc {
+      stroke-dasharray: 360;
+      stroke-dashoffset: 360;
+      animation: draw 2s cubic-bezier(.65,0,.35,1) .35s forwards;
+    }
+    .map .reveal { opacity: 0; animation: fade .8s ease 1.9s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes fade { to { opacity: 1; } }
+  }
+
+  /* ---- events ---- */
+  .events { padding: 8px 0 24px; }
+  .events-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sea);
+    margin: 0 0 4px;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .event {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 28px;
+    align-items: baseline;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--ink-soft);
+    text-decoration: none;
+    color: inherit;
+  }
+  .event .date {
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.05;
+  }
+  .event .date .day {
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--rose);
+  }
+  .event .date .year {
+    font-size: 17px;
+    letter-spacing: 0.18em;
+    color: #5a6878;
+  }
+  .event .body h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin: 0 0 6px;
+    line-height: 1.1;
+  }
+  .event .body h2 .tag {
+    font-style: italic;
+    font-size: 23px;
+    color: #5a6878;
+  }
+  .event .body .where {
+    font-size: 18px;
+    color: var(--sea);
+    margin: 0 0 10px;
+  }
+  .event .body .about {
+    margin: 0;
+    max-width: 52ch;
+    color: #39485a;
+  }
+  .event .go {
+    align-self: center;
+    white-space: nowrap;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    border-bottom: 1.5px solid var(--gold);
+    padding-bottom: 3px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .event:hover .go,
+  .event:focus-visible .go { color: var(--rose); border-color: var(--rose); }
+  .event:focus-visible { outline: 2px solid var(--sea); outline-offset: 6px; }
+
+  /* ---- footer ---- */
+  footer {
+    margin-top: 48px;
+    padding: 40px 0 56px;
+    font-size: 17px;
+    color: #5a6878;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  footer a { color: var(--sea); text-decoration: none; border-bottom: 1px solid transparent; }
+  footer a:hover { border-color: var(--sea); }
+  footer .sig { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 8px; padding: 36px 0 48px; }
+    .hero .map { max-width: 320px; margin-top: 12px; }
+    .event { grid-template-columns: 70px 1fr; gap: 20px; }
+    .event .date .day { font-size: 32px; }
+    .event .go { grid-column: 2; align-self: start; justify-self: start; margin-top: 4px; }
+  }
 </style>
 </head>
 <body>
-<img src="assets/bridges-gold.png" alt="Bridges">
-<p>France Marseilles/Toulouse Mission Reunion · Design Preview</p>
-<nav><a href="website/">Website</a><a href="flyer/">Flyer</a><a href="email/">Email</a></nav>
-<small>Draft for review. Bracketed items are still to come.</small>
+  <div class="wrap">
+    <div class="masthead">France Marseille &nbsp;·&nbsp; Toulouse Mission</div>
+
+    <header class="hero">
+      <div>
+        <h1>The south of France,<br>wherever we <em>land now</em>.</h1>
+        <p>Reunions and gatherings for everyone who served between
+           the Mediterranean and the Garonne — and the families who came home with us.</p>
+      </div>
+
+      <svg class="map" viewBox="0 0 320 210" role="img"
+           aria-label="A line linking Toulouse and Marseille across the south of France.">
+        <!-- faint route, drawn as dots -->
+        <path class="route" d="M58 150 C 120 120, 200 120, 262 96" />
+        <!-- the bridging arc -->
+        <path class="arc" d="M58 150 C 110 70, 210 70, 262 96" />
+
+        <!-- Toulouse (west) -->
+        <circle class="city" cx="58" cy="150" r="4.5" />
+        <circle class="ring" cx="58" cy="150" r="9" />
+        <text x="58" y="178" text-anchor="middle">Toulouse</text>
+
+        <!-- Marseille (east) -->
+        <circle class="city" cx="262" cy="96" r="4.5" />
+        <circle class="ring" cx="262" cy="96" r="9" />
+        <text x="262" y="124" text-anchor="middle">Marseille</text>
+      </svg>
+    </header>
+
+    <main class="events">
+      <p class="events-label">Upcoming</p>
+
+      <a class="event" href="bridges/">
+        <span class="date">
+          <span class="day">20</span>
+          <span class="year">Dec 2026</span>
+        </span>
+        <span class="body">
+          <h2>Bridges <span class="tag">— a Christmas reunion</span></h2>
+          <p class="where">Eagle Gate Apartments, Salt Lake&nbsp;·&nbsp;6:00&nbsp;PM</p>
+          <p class="about">An evening of dinner, French carols, and a Bûche de Noël
+             contest. Come see who else made it home.</p>
+        </span>
+        <span class="go">View details &amp; RSVP</span>
+      </a>
+    </main>
+
+    <footer>
+      <span class="sig">Au revoir, à bientôt.</span>
+      <span>More gatherings to come. Organizing one?
+        <a href="mailto:organizer@missionmarseilletoulouse.com">Let us know.</a></span>
+    </footer>
+  </div>
 </body>
 </html>
