@@ -1917,7 +1917,10 @@
             })
             .join("");
         } catch (e) {
-          /* leave the static fallback in place if the fetch fails */
+          // never leave the sample rows showing — they read as fake data
+          count.textContent = "—";
+          list.innerHTML =
+            '<li style="padding:18px 0;color:#5b6573;font-size:16px">Couldn\'t load the guest list right now.</li>';
         }
       }
 
@@ -1948,7 +1951,8 @@
             )
             .join("");
         } catch (e) {
-          /* leave the static fallback in place if the fetch fails */
+          grid.innerHTML =
+            '<p style="grid-column:1/-1;text-align:center;color:#7b705c;font-size:16px">Couldn\'t load the gallery right now.</p>';
         }
       }
 
