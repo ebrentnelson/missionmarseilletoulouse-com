@@ -495,7 +495,7 @@
               color: #c9a55c;
             "
           >
-            Three Christmases, one bridge — carrying us back to the mission, and
+            Three Christmases, one bridge, carrying us back to the mission and
             to one another.
           </p>
 
@@ -703,7 +703,7 @@
               >
               <span style="font-size: 16px; line-height: 1.6; color: #4c5665"
                 >The friendships keep going. Come see who else is crossing the
-                bridge — no RSVP required.</span
+                bridge. No RSVP required.</span
               >
               <span
                 style="
@@ -834,7 +834,7 @@
                 >109 E. South Temple, Salt Lake City, UT 84111</span
               >
               <span style="font-size: 14px; color: #8f9aaa"
-                >Validated parking available that evening — details to come
+                >Validated parking available that evening. Details to come
                 closer to the date</span
               >
             </div>
@@ -865,7 +865,7 @@
                 >Every Elder and Sister</span
               >
               <span style="font-size: 16px; color: #b9c2cf"
-                >Spouses and families warmly welcome</span
+                >Spouses, significant others, and families warmly welcome</span
               >
             </div>
           </div>
@@ -974,7 +974,7 @@
               color: #4c5665;
             "
           >
-            No RSVP required — everyone is welcome, right down to a last-minute
+            No RSVP required. Everyone is welcome, right down to a last-minute
             yes at the door. Letting us know you can come simply helps us plan
             the room and the refreshments. We would love to see you there.
           </p>
@@ -1104,7 +1104,7 @@
                     text-transform: uppercase;
                     color: #7a5c22;
                   "
-                  ><span id="rsvp-count">—</span> Coming</span
+                  ><span id="rsvp-count">0</span> Coming</span
                 >
               </div>
               <ul id="attendee-list" style="list-style: none; margin: 0; padding: 0">
@@ -1369,14 +1369,14 @@
               "
             >
               If you would like to, come with a favorite two-minute Christmas
-              memory from France or the mission — a street, a companion, a
+              memory from France or the mission: a street, a companion, a
               chapel, a miracle, a meal. We will leave a little room in the
               evening for anyone who wants to share one. No pressure, no
               sign-up.
             </p>
           </div>
 
-          <!-- Bûche de Noël contest — hidden for now, kept for a future year -->
+          <!-- Bûche de Noël contest, hidden for now, kept for a future year -->
           <div
             id="buche"
             data-form="contest"
@@ -1756,7 +1756,7 @@
       };
       const DONE = {
         rsvp: "You're on the list. Your name joins the wall once we confirm it.",
-        song: "Request received — it joins the list once we approve it.",
+        song: "Request received. It joins the list once we approve it.",
         contest: "You're entered. Bonne chance.",
       };
 
@@ -1868,8 +1868,8 @@
             })
             .join("");
         } catch (e) {
-          // never leave the sample rows showing — they read as fake data
-          count.textContent = "—";
+          // never leave the sample rows showing; they read as fake data
+          count.textContent = "0";
           list.innerHTML =
             '<li style="padding:18px 0;color:#5b6573;font-size:16px">Couldn\'t load the guest list right now.</li>';
         }
@@ -2086,7 +2086,7 @@
               name: dlg.querySelector("#up-name").value,
             });
             upStatus.style.color = "#8fd0a3";
-            upStatus.textContent = "Thanks — pending approval.";
+            upStatus.textContent = "Thanks! Pending approval.";
             file.value = "";
             setTimeout(() => dlg.close(), 1400);
           } catch (e) {
