@@ -3,463 +3,135 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="x-apple-disable-message-reformatting" />
-    <meta name="color-scheme" content="light only" />
-    <title>Bridges — A Christmas Soiree</title>
-    <!-- web fonts load in Apple Mail / iOS; everywhere else falls back to Georgia -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Bridges — Email Previews</title>
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&amp;family=EB+Garamond:wght@0,400&amp;display=swap"
     />
     <style>
-      a {
-        color: #7a5c22;
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #0f1b2d;
+        color: #f5efe3;
+        font-family: "EB Garamond", Georgia, serif;
+        padding: 72px 24px;
+        box-sizing: border-box;
       }
-      /* serif display + body stacks, used inline below too */
+      .wrap {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .eyebrow {
+        margin: 0;
+        font-size: 12px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #c9a55c;
+        text-align: center;
+      }
+      h1 {
+        margin: 14px 0 8px;
+        text-align: center;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+      }
+      .lede {
+        margin: 0 0 48px;
+        text-align: center;
+        color: #b9c2cf;
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      a.card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(201, 165, 92, 0.4);
+        padding: 28px 32px;
+        margin-bottom: 18px;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      a.card:hover {
+        border-color: #c9a55c;
+        background: #16263d;
+      }
+      .num {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 20px;
+        color: #7a5c22;
+        letter-spacing: 0.1em;
+      }
+      .card h2 {
+        margin: 6px 0 6px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 500;
+        font-size: 28px;
+      }
+      .card p {
+        margin: 0;
+        color: #b9c2cf;
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .status {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #c9a55c;
+      }
+      footer {
+        margin-top: 40px;
+        text-align: center;
+        color: #8f9aaa;
+        font-size: 13px;
+      }
     </style>
   </head>
-  <body
-    style="
-      margin: 0;
-      padding: 0;
-      background: #e6decd;
-      font-family: 'EB Garamond', Georgia, serif;
-    "
-  >
-    <!-- inbox preview text -->
-    <div
-      style="
-        display: none;
-        max-height: 0;
-        overflow: hidden;
-        mso-hide: all;
-        font-size: 1px;
-        line-height: 1px;
-        color: #e6decd;
-      "
-    >
-      Christmas Past, Present, and Yet to Come. You are invited.
+  <body>
+    <div class="wrap">
+      <p class="eyebrow">Bridges — A Soirée de Noël</p>
+      <h1>Email Previews</h1>
+      <p class="lede">
+        The three-message series for the reunion, in the order we would send
+        them. These are previews for review.
+      </p>
+
+      <a class="card" href="save-the-date/">
+        <span class="num">I · Send now</span>
+        <h2>Save the Date</h2>
+        <p>
+          The lean first touch — just the date, time, and place, on theme. No
+          details beyond the essentials.
+        </p>
+        <span class="status">Ready to send</span>
+      </a>
+
+      <a class="card" href="invitation/">
+        <span class="num">II · A few weeks out</span>
+        <h2>The Invitation</h2>
+        <p>
+          The full invite — the three Christmases, the evening, and the welcome.
+          RSVP optional throughout.
+        </p>
+        <span class="status">Ready to send</span>
+      </a>
+
+      <a class="card" href="avignon/">
+        <span class="num">III · Follow-on</span>
+        <h2>Sur le Pont d'Avignon</h2>
+        <p>
+          A warm reminder built on the old French bridge song — one more nudge
+          to come gather. Placeholder bridge art for now.
+        </p>
+        <span class="status">Draft</span>
+      </a>
+
+      <footer>France Marseille / Toulouse Mission</footer>
     </div>
-
-    <table
-      role="presentation"
-      width="100%"
-      cellpadding="0"
-      cellspacing="0"
-      border="0"
-      style="background: #e6decd"
-    >
-      <tr>
-        <td align="center" style="padding: 20px">
-          <p
-            style="
-              margin: 0 0 12px;
-              font-family: 'EB Garamond', Georgia, serif;
-              font-size: 12px;
-              color: #4c5665;
-              text-align: center;
-            "
-          >
-            Christmas Past, Present, and Yet to Come. You are invited.
-          </p>
-
-          <table
-            role="presentation"
-            width="600"
-            cellpadding="0"
-            cellspacing="0"
-            border="0"
-            style="
-              width: 600px;
-              max-width: 600px;
-              background: #f5efe3;
-              color: #1e2a3a;
-            "
-          >
-            <!-- Header -->
-            <tr>
-              <td
-                style="
-                  background: #0f1b2d;
-                  padding: 56px 40px 40px;
-                  text-align: center;
-                "
-              >
-                <p
-                  style="
-                    margin: 0;
-                    font-family: 'EB Garamond', Georgia, serif;
-                    font-size: 12px;
-                    letter-spacing: 0.28em;
-                    text-transform: uppercase;
-                    color: #c9a55c;
-                  "
-                >
-                  The France Marseille/Toulouse Mission Reunion
-                </p>
-                <img
-                  src="https://missionmarseilletoulouse.com/assets/bridges-gold.png"
-                  alt="Bridges"
-                  width="440"
-                  style="
-                    width: 440px;
-                    max-width: 100%;
-                    height: auto;
-                    display: block;
-                    margin: 18px auto 0;
-                  "
-                />
-                <p
-                  style="
-                    margin: 14px 0 0;
-                    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman',
-                      serif;
-                    font-style: italic;
-                    font-size: 26px;
-                    color: #e9dfc9;
-                  "
-                >
-                  A Christmas Soiree
-                </p>
-                <img
-                  src="https://missionmarseilletoulouse.com/assets/bridge-gold.png"
-                  alt=""
-                  width="500"
-                  style="
-                    width: 500px;
-                    max-width: 100%;
-                    height: auto;
-                    display: block;
-                    margin: 32px auto 0;
-                  "
-                />
-                <p
-                  style="
-                    margin: 28px 0 0;
-                    font-family: 'EB Garamond', Georgia, serif;
-                    font-size: 15px;
-                    letter-spacing: 0.06em;
-                    color: #b9c2cf;
-                  "
-                >
-                  Sunday, December 20 &#10022; 6:00 to 8:00 PM &#10022; Eagle Gate
-                  Apartments, Salt Lake City
-                </p>
-              </td>
-            </tr>
-
-            <!-- Letter -->
-            <tr>
-              <td
-                style="
-                  padding: 48px 48px 8px;
-                  font-family: 'EB Garamond', Georgia, serif;
-                  font-size: 17px;
-                  line-height: 1.65;
-                "
-              >
-                <p
-                  style="
-                    margin: 0 0 18px;
-                    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman',
-                      serif;
-                    font-style: italic;
-                    font-size: 24px;
-                  "
-                >
-                  Dear Elders and Sisters,
-                </p>
-                <p style="margin: 0 0 18px">
-                  It has been a while since we walked the same streets in the
-                  France Marseille/Toulouse Mission. This December, we are
-                  building a bridge back.
-                </p>
-                <p style="margin: 0">
-                  Join us for one evening that honors the Christmases we spent in
-                  the field, the lives we are living now, and the friendships
-                  still to come. Spouses and families are very much invited.
-                </p>
-              </td>
-            </tr>
-
-            <!-- Three crossings -->
-            <tr>
-              <td style="padding: 24px 48px 8px">
-                <table
-                  role="presentation"
-                  width="100%"
-                  cellpadding="0"
-                  cellspacing="0"
-                  border="0"
-                >
-                  <tr>
-                    <td style="border-top: 1px solid #d8cbb0; padding: 20px 0">
-                      <table
-                        role="presentation"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                      >
-                        <tr>
-                          <td
-                            valign="top"
-                            width="44"
-                            style="
-                              width: 44px;
-                              font-family: 'Cormorant Garamond', Georgia, serif;
-                              font-size: 30px;
-                              line-height: 1;
-                              color: #7a5c22;
-                            "
-                          >
-                            I
-                          </td>
-                          <td valign="top" style="padding-left: 20px">
-                            <div
-                              style="
-                                font-family: 'Cormorant Garamond', Georgia, serif;
-                                font-size: 24px;
-                                font-weight: 500;
-                              "
-                            >
-                              Christmas Past
-                            </div>
-                            <div
-                              style="
-                                font-family: 'EB Garamond', Georgia, serif;
-                                font-size: 15px;
-                                line-height: 1.55;
-                                color: #4c5665;
-                                padding-top: 4px;
-                              "
-                            >
-                              Share your mission photos in the gallery.
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="border-top: 1px solid #d8cbb0; padding: 20px 0">
-                      <table
-                        role="presentation"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                      >
-                        <tr>
-                          <td
-                            valign="top"
-                            width="44"
-                            style="
-                              width: 44px;
-                              font-family: 'Cormorant Garamond', Georgia, serif;
-                              font-size: 30px;
-                              line-height: 1;
-                              color: #7a5c22;
-                            "
-                          >
-                            II
-                          </td>
-                          <td valign="top" style="padding-left: 20px">
-                            <div
-                              style="
-                                font-family: 'Cormorant Garamond', Georgia, serif;
-                                font-size: 24px;
-                                font-weight: 500;
-                              "
-                            >
-                              Christmas Present
-                            </div>
-                            <div
-                              style="
-                                font-family: 'EB Garamond', Georgia, serif;
-                                font-size: 15px;
-                                line-height: 1.55;
-                                color: #4c5665;
-                                padding-top: 4px;
-                              "
-                            >
-                              Dinner, carols by request, and a bûche de Noël
-                              contest.
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style="
-                        border-top: 1px solid #d8cbb0;
-                        border-bottom: 1px solid #d8cbb0;
-                        padding: 20px 0;
-                      "
-                    >
-                      <table
-                        role="presentation"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                      >
-                        <tr>
-                          <td
-                            valign="top"
-                            width="44"
-                            style="
-                              width: 44px;
-                              font-family: 'Cormorant Garamond', Georgia, serif;
-                              font-size: 30px;
-                              line-height: 1;
-                              color: #7a5c22;
-                            "
-                          >
-                            III
-                          </td>
-                          <td valign="top" style="padding-left: 20px">
-                            <div
-                              style="
-                                font-family: 'Cormorant Garamond', Georgia, serif;
-                                font-size: 24px;
-                                font-weight: 500;
-                              "
-                            >
-                              Christmas Yet to Come
-                            </div>
-                            <div
-                              style="
-                                font-family: 'EB Garamond', Georgia, serif;
-                                font-size: 15px;
-                                line-height: 1.55;
-                                color: #4c5665;
-                                padding-top: 4px;
-                              "
-                            >
-                              Save your seat and see who is coming.
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-
-            <!-- CTA -->
-            <tr>
-              <td style="padding: 40px 48px 16px; text-align: center">
-                <table
-                  role="presentation"
-                  cellpadding="0"
-                  cellspacing="0"
-                  border="0"
-                  align="center"
-                  style="margin: 0 auto"
-                >
-                  <tr>
-                    <td
-                      align="center"
-                      bgcolor="#0f1b2d"
-                      style="border-radius: 2px"
-                    >
-                      <a
-                        href="https://missionmarseilletoulouse.com/bridges/#rsvp"
-                        style="
-                          display: inline-block;
-                          padding: 18px 44px;
-                          font-family: 'EB Garamond', Georgia, serif;
-                          font-size: 14px;
-                          font-weight: 500;
-                          letter-spacing: 0.18em;
-                          text-transform: uppercase;
-                          color: #f5efe3;
-                          text-decoration: none;
-                        "
-                        >RSVP Before December 13</a
-                      >
-                    </td>
-                  </tr>
-                </table>
-                <p
-                  style="
-                    margin: 20px 0 0;
-                    font-family: 'EB Garamond', Georgia, serif;
-                    font-size: 13px;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                  "
-                >
-                  <a
-                    href="https://missionmarseilletoulouse.com/bridges/#carols"
-                    style="color: #7a5c22; text-decoration: none"
-                    >Request a Carol</a
-                  >
-                  &nbsp;&nbsp;&nbsp;
-                  <a
-                    href="https://missionmarseilletoulouse.com/bridges/#buche"
-                    style="color: #7a5c22; text-decoration: none"
-                    >Enter a Bûche</a
-                  >
-                  &nbsp;&nbsp;&nbsp;
-                  <a
-                    href="https://missionmarseilletoulouse.com/bridges/#gallery"
-                    style="color: #7a5c22; text-decoration: none"
-                    >Share Photos</a
-                  >
-                </p>
-              </td>
-            </tr>
-
-            <!-- Sign off -->
-            <tr>
-              <td style="padding: 32px 48px 48px; text-align: center">
-                <p
-                  style="
-                    margin: 0;
-                    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman',
-                      serif;
-                    font-style: italic;
-                    font-size: 30px;
-                  "
-                >
-                  God bless us, every one.
-                </p>
-                <p
-                  style="
-                    margin: 12px 0 0;
-                    font-family: 'EB Garamond', Georgia, serif;
-                    font-size: 15px;
-                    color: #4c5665;
-                  "
-                >
-                  Brent Nelson, for the reunion committee
-                </p>
-              </td>
-            </tr>
-
-            <!-- Footer -->
-            <tr>
-              <td
-                style="
-                  background: #0f1b2d;
-                  padding: 24px 40px;
-                  text-align: center;
-                  font-family: 'EB Garamond', Georgia, serif;
-                  font-size: 12px;
-                  line-height: 1.6;
-                  color: #b9c2cf;
-                "
-              >
-                missionmarseilletoulouse.com/bridges &middot; Questions? Reply to
-                this email.<br />Forward this to any companion we might have
-                missed.
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
   </body>
 </html>
